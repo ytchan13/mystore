@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import redirect,render
 
 from .forms import ProductForm
@@ -9,6 +10,7 @@ def product_list(request):
     return render(request, 'estore/product_list.html', {'products': products})
 
 
+@permission_required('estore.add_product')
 def product_create(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
