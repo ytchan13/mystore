@@ -1,0 +1,16 @@
+{% if form.errors %}
+    <p>帳號密碼驗證失敗，請重試</p>
+{% endif %}
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>你的帳號沒有權限瀏覽此頁面，請嘗試登入其他帳號</p>
+    {% else %}
+        <p>登入以瀏覽此頁</p>
+    {% endif %}
+{% endif %}
+<form method="post" action="{% url 'login' %}?next={{ next }}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">登入</button>
+</form>
+<p><a href="{% url 'password_reset' %}">忘記密碼?</a></p>
