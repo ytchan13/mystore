@@ -2,9 +2,6 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <!-- {% if form.errors %}
-        <p>帳號密碼驗證失敗，請重試</p>
-    {% endif %} -->
     {% if next and not messages %}
         {% if user.is_authenticated %}
             {% bootstrap_alert '你的帳號沒有權限瀏覽此頁面，請嘗試登入其他帳號' alert_type='danger' %}
