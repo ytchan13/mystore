@@ -1,0 +1,27 @@
+{% extends 'estore/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            {% if object.image %}
+                <img class="img-responsive" src="{{ object.image.url }}" alt="{{ object.title }}">
+            {% else %}
+                <img class="img-responsive" src="//placehold.it/400x400&text=No Pic" alt="{{ object.title }}">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2> {{ object.tilte }} </h2>
+            <div style="height:100px;">
+                <p>
+                    {{ object.description }}
+                </p>
+            </div>
+            <div> 數量 : {{ object.quantity }} </div>
+            <div class="product-price"> $ {{ object.price }} </div>
+            <div class="pull-right">
+                {% bootstrap_button '加入購物車' button_type='button' button_class='btn-primary btn-lg btn-danger' href='#' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

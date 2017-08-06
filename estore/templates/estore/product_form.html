@@ -1,8 +1,9 @@
-{% extends 'estore/base.html' %}
+<!-- {% extends 'estore/base.html' %} -->
+{% extends 'estore/dashboard_base.html' %}
 {% load bootstrap3 %}
 
 {% block content %}
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons submit='儲存' %} {% endbuttons %}

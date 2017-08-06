@@ -1,9 +1,22 @@
 {% extends 'estore/base.html' %}
 
 {% block content %}
-    <ul>
-        {% for product in products %}
-            <li> {{ product }} </li>
+    <!-- <ul> -->
+    <div class="row">
+        <!-- {% for product in products %} -->
+        {% for product in object_list %}
+            <!-- <li> {{ product }} </li> -->
+            <div class="col-xs-6 col-md-3">
+                <a href="{% url 'product_detail' product.id %}" class="thumbnail">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% else %}
+                        <img src="//placehold.it/200x200&text=No Pic" alt="{{ product.title }}">
+                    {% endif %}
+                </a>
+                {{ product.title }} $ {{ product.price }}
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+    <!-- </ul> -->
 {% endblock %}

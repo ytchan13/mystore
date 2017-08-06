@@ -1,0 +1,48 @@
+{% extends 'estore/dashboard_base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <h2> 產品列表 </h2>
+    <div class="pull-right" style="padding-bottom: 20px;">
+        {% url 'dashboard_product_create' as dashboard_product_create_url %}
+        {% bootstrap_button '新增產品' button_type='button' button_class='btn-primary btn-sm' href=dashboard_product_create_url %}
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th width="220">產品圖片</th>
+            <th>產品名稱</th>
+            <th>價格</th>
+            <th width="100"> 選項</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in object_list %}
+            <tr>
+                <td>
+                    {{ product.id }}
+                </td>
+                <td>
+                    <a href="{% url 'product_detail' pk=product.id %}">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                        {% else %}
+                            <img src="//placehold.it/200x200&text=No Pic" alt="{{ product.title }}">
+                        {% endif %}
+                    </a>
+                </td>
+                <td>
+                    {{ product.title }}
+                </td>
+                <td>
+                    {{ product.price }}
+                </td>
+                <td>
+                    <a href="{% url 'dashboard_product_update' pk=product.id %}">修改</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
