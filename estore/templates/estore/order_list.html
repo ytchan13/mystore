@@ -1,0 +1,21 @@
+{% extends 'estore/base.html' %}
+
+{% block content %}
+    <h2>訂單列表 </h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>生成時間</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in object_list %}
+            <tr>
+                <td> <a href="{% url 'order_detail' order.token %}">{{ order.token }}</a> </td>
+                <td> {{ order.created }} </td>
+            </tr>
+            {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

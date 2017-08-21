@@ -1,0 +1,33 @@
+{% load bootstrap3 %}
+
+<div style="padding:10px; float:right;">
+    {% if object.state == 'order_placed'%}
+    <form action="{% url 'dashboard_order_action' token=object.token action='cancel_order'%}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_button '取消訂單' button_type='submit' button_class='btn-default btn-sm' %}
+    </form>
+    {% elif object.state == 'paid' %}
+    <form action="{% url 'dashboard_order_action' token=object.token action='cancel_order'%}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_button '取消訂單' button_type='submit' button_class='btn-default btn-sm' %}
+    </form>
+    <form action="{% url 'dashboard_order_action' token=object.token action='ship'%}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_button '出貨' button_type='submit' button_class='btn-default btn-sm' %}
+    </form>
+    {% elif object.state == 'shipping' %}
+    <form action="{% url 'dashboard_order_action' token=object.token action='deliver'%}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_button '送達' button_type='submit' button_class='btn-default btn-sm' %}
+    </form>
+    {% elif object.state == 'shipped' %}
+    <form action="{% url 'dashboard_order_action' token=object.token action='return_good'%}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_button '退貨' button_type='submit' button_class='btn-default btn-sm' %}
+    </form>
+    {% elif object.state == 'order_cancelled' %}
+    <span class="label label-default">訂單已取消</span>
+    {% elif object.state == 'good_returned' %}
+    <span class="label label-default">已退貨</span>
+    {% endif %}
+</div>

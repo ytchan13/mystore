@@ -1,0 +1,72 @@
+{% extends 'estore/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2> 訂單明細 </h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th width="80%">商品明細</th>
+                    <th>單價</th>
+                    <th>數量</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in object.orderitem_set.all %}
+                    <tr>
+                        <td>
+                            {{ item.title }}
+                        </td>
+                        <td>
+                            {{ item.price }}
+                        </td>
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="total clearfix">
+                <span class="pull-right">總計 {{ object.total }} NTD</span>
+            </div>
+            <hr>
+            <h2> 寄送資訊 </h2>
+            <table class="table table-striped table-bordered">
+                <tbody>
+                <tr>
+                    <td>
+                        訂購人
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ object.info.billing_name }} - {{ object.info.billing_address }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        收件人
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {{ object.info.shipping_name }} - {{ object.info.shipping_address }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {% if not object.is_paid %}
+                <div class="pull-right">
+                    {% url 'order_pay_with_credit_card' token=object.token as order_pay_with_credit_card_url %}
+                    {% bootstrap_button '以信用卡付款' button_type='button' button_class='btn-lg btn-danger pull-right' href=order_pay_with_credit_card_url %}
+                    {% bootstrap_button '以 ATM 付款' button_type='button' button_class='btn-lg btn-danger pull-right' href='#' %}
+                </div>
+            {% else %}
+                <p class="text-center">此訂單已完成付款</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

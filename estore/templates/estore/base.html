@@ -1,10 +1,14 @@
 {% load bootstrap3 %}
+{% load fontawesome %}
+{% load static %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery=1 %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>EStore - 線上電器購物第一選擇</title>
+    {% fontawesome_stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'estore/css/application.css' %}">
 </head>
 <body>
 {% block navbar %}

@@ -20,7 +20,10 @@
             <div> 數量 : {{ object.quantity }} </div>
             <div class="product-price"> $ {{ object.price }} </div>
             <div class="pull-right">
-                {% bootstrap_button '加入購物車' button_type='button' button_class='btn-primary btn-lg btn-danger' href='#' %}
+                <form method="post" action="{% url 'product_addtocart' object.id %}">
+                    {% csrf_token %}
+                    {% bootstrap_button '加入購物車' button_type='submit' button_class='btn-primary btn-lg btn-danger' %}
+                </form>
             </div>
         </div>
     </div>

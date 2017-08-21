@@ -1,0 +1,44 @@
+{% extends 'estore/base.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+	<div class="row">
+        <div class="col-md-12">
+            <h2> 訂單明細 </h2>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th width="80%">商品明細</th>
+                    <th>單價</th>
+                    <th>數量</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in request.cart.cart_items_set.all %}
+                    <tr>
+                        <td>
+                            {{ item.product.title }}
+                        </td>
+                        <td>
+                            {{ item.product.price }}
+                        </td>
+                        <td>
+                            {{ item.quantity }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="total clearfix">
+                <span class="pull-right">總計 {{ cart.total_price }} NTD</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_form form_orderinfo %}
+        {% buttons submit='儲存' %} {% endbuttons %}
+    </form>
+{% endblock %}
