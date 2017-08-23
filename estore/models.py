@@ -3,6 +3,7 @@ import uuid
 from django.contrib.auth.models import User
 from django.db import models
 from django_fsm import FSMField, transition
+from django.urls import reverse
 
 # Create your models here.
 class Product(models.Model):
@@ -49,6 +50,9 @@ class Order(models.Model):
     payment_method = models.CharField(max_length=255, default='')
     state = FSMField(default='order_placed')
     created = models.DateTimeField(auto_now_add=True, null=True,  blank=True)
+
+    def get_absolute_url(self):
+        return reverse('order_detail', kwargs={'token': self.token.hex})
 
     @transition(field=state, source='order_placed', target='paid')
     def make_payment(self):

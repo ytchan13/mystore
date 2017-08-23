@@ -36,6 +36,8 @@ urlpatterns = [
     # url(r'^order/(?P<pk>\d+)/', views.OrderDetail.as_view(), name='order_detail')
     url(r'^order/(?P<token>[0-9a-f-]+)/$', views.OrderDetail.as_view(), name='order_detail'),
     url(r'^order/(?P<token>[0-9a-f-]+)/pay_with_credit_card$', views.OrderPayWithCreditCard.as_view(), name='order_pay_with_credit_card'),
+
+    url(r'^sign-up', views.UserCreate.as_view(), name='sign_up'),
 ]
 
 if settings.DEBUG:

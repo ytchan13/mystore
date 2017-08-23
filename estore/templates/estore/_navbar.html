@@ -26,6 +26,7 @@
                     <a href="{% url 'cart_detail' %}">購物車 {% fontawesome_icon 'shopping-cart' %} ({{ request.cart.items.count }})</a>
                 </li>
                 {% if not user.is_authenticated %}
+                    <li><a href="{% url 'sign_up' %}">註冊</a></li>
                     <li><a href="{% url 'login' %}">登入</a></li>
                 {% else %}
                     <li class="dropdown">

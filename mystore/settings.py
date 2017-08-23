@@ -132,6 +132,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+INSTALLED_APPS += ('naomi',)
+EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)

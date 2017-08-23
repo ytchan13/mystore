@@ -11,9 +11,10 @@ from django.urls import reverse
 from django.views import generic
 
 # from .forms import ProductForm
-from .forms import OrderInfoForm
+from .forms import OrderInfoForm, EstoreUserCreationForm
 # from .models import Order, Product
 from .models import Cart_Items, Order, OrderItem, Product
+from .helpers import send_order_mail
 
 # Create your views here.
 
@@ -200,6 +201,13 @@ class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
 
             self.request.cart.cart_items_set.all().delete()   #訂單產生時清空購物車
 
+            send_order_mail(
+            from_email=None,
+            recipient_list=[self.request.user.email],
+            request=self.request,
+            order=self.object,
+            )
+
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, **kwargs):
@@ -319,4 +327,12 @@ class UserRemoveFromStaff(PermissionRequiredMixin, generic.UpdateView):
             group.user_set.remove(self.object)
             messages.success(self.request, '已變更使用者身份為一般使用者')
         return reverse('dashboard_user_list')
+
+class UserCreate(generic.CreateView):
+    model = User
+    form_class = EstoreUserCreationForm
+
+    def get_success_url(self):
+        messages.success(self.request, '帳戶已創立')
+        return reverse('login')
 
